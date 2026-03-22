@@ -23,7 +23,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json({ limit: '2mb' }));
-app.use(cookieParser());
+app.use(cookieParser() as express.RequestHandler);
 
 app.use('/api/auth',   authRoutes);
 app.use('/api/trades', tradeRoutes);
