@@ -23,7 +23,8 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json({ limit: '2mb' }));
-app.use(cookieParser() as express.RequestHandler);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use(cookieParser() as any);
 
 app.use('/api/auth',   authRoutes);
 app.use('/api/trades', tradeRoutes);
