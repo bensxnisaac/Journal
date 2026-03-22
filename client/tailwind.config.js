@@ -1,19 +1,22 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  content: ['./index.html', './src/**/*.{ts,tsx}'],
+
   theme: {
     extend: {
       colors: {
-        bg:      '#06080b',
-        bg2:     '#0b0f14',
-        bg3:     '#10161d',
-        bg4:     '#141c24',
-        border:  '#1a2535',
-        border2: '#223040',
-        bull:    '#00d97e',
-        bear:    '#ff3d5a',
-        acc:     '#2d8fff',
-        gold:    '#ffb800',
+        bg:      'var(--bg)',
+        bg2:     'var(--bg2)',
+        bg3:     'var(--bg3)',
+        bg4:     'var(--bg4)',
+        border:  'var(--border)',
+        border2: 'var(--border2)',
+        primary: 'var(--text)',
+        muted:   'var(--muted)',
+        bull:    'rgb(0 217 126 / <alpha-value>)',
+        bear:    'rgb(255 61 90 / <alpha-value>)',
+        acc:     'rgb(45 143 255 / <alpha-value>)',
+        gold:    'rgb(255 184 0 / <alpha-value>)',
       },
       fontFamily: {
         mono: ['"DM Mono"', 'monospace'],

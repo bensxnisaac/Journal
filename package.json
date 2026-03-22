@@ -1,29 +1,37 @@
 {
   "name": "smc-journal",
   "version": "1.0.0",
-  "description": "SMC Trade Journal — EURUSD Intraday System",
+  "description": "SMC Trade Journal — EUR/USD Intra Day System",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "node --watch server/index.js",
+    "dev:server": "tsx watch server/index.ts",
     "dev:client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
-    "start": "node server/index.js",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "node server/db/migrate.js",
-    "db:studio": "drizzle-kit studio"
+    "build": "tsc -p server/tsconfig.json && cd client && npm run build",
+    "start": "node dist/server/index.js",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "^9.4.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.10",
     "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "postgres": "^3.4.8"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.25",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.19.37",
     "concurrently": "^8.2.2",
-    "drizzle-kit": "^0.21.4"
+    "drizzle-kit": "^0.21.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

@@ -2,19 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens ─────────────────────────────────────────── */
+:root, .dark {
+  --bg:      #06080b;
+  --bg2:     #0b0f14;
+  --bg3:     #10161d;
+  --bg4:     #141c24;
+  --border:  #1a2535;
+  --border2: #223040;
+  --text:    #e2e8f0;
+  --muted:   #7a90a8;
+  --grid-line: rgba(45,143,255,0.025);
+  --scrollbar-track: #06080b;
+  --scrollbar-thumb: #1a2535;
+  --scrollbar-thumb-hover: #223040;
+}
+
+
 @layer base {
   body {
-    @apply bg-bg text-slate-300 font-sans antialiased;
+    @apply bg-bg font-sans antialiased;
+    color: var(--text);
+    font-size: 15px;
     background-image:
-      linear-gradient(rgba(45,143,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(45,143,255,0.025) 1px, transparent 1px);
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #06080b; }
-  ::-webkit-scrollbar-thumb { background: #1a2535; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #223040; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 }
 
 @layer components {
@@ -25,117 +44,86 @@
     @apply flex items-center justify-between px-5 py-3 border-b border-border;
   }
   .card-title {
-    @apply font-mono text-[9px] tracking-[3px] text-slate-500 uppercase;
+    @apply font-mono text-[11px] tracking-[3px] uppercase;
+    color: var(--muted);
   }
   .badge {
-    @apply font-mono text-[9px] px-2 py-0.5 rounded border;
+    @apply font-mono text-[11px] px-2 py-0.5 rounded border;
   }
-  .badge-acc {
-    @apply badge bg-acc/10 text-acc border-acc/20;
-  }
-  .badge-bull {
-    @apply badge bg-bull/10 text-bull border-bull/20;
-  }
-  .badge-bear {
-    @apply badge bg-bear/10 text-bear border-bear/20;
-  }
-  .badge-gold {
-    @apply badge bg-gold/10 text-gold border-gold/20;
-  }
-  .badge-neutral {
-    @apply badge bg-white/5 text-slate-400 border-border;
-  }
+  .badge-acc     { @apply badge bg-acc/10 text-acc border-acc/20; }
+  .badge-bull    { @apply badge bg-bull/10 text-bull border-bull/20; }
+  .badge-bear    { @apply badge bg-bear/10 text-bear border-bear/20; }
+  .badge-gold    { @apply badge bg-gold/10 text-gold border-gold/20; }
+  .badge-neutral { @apply badge bg-black/5 border-border; color: var(--muted); }
+
   .btn {
-    @apply px-4 py-2 rounded-lg font-mono text-[10px] tracking-[2px] uppercase font-medium transition-all duration-150 cursor-pointer border disabled:opacity-40 disabled:cursor-not-allowed;
+    @apply px-4 py-2 rounded-lg font-mono text-[12px] tracking-[2px] uppercase font-medium
+           transition-all duration-150 cursor-pointer border
+           disabled:opacity-40 disabled:cursor-not-allowed;
   }
-  .btn-primary {
-    @apply btn bg-acc/15 text-acc border-acc/25 hover:bg-acc/25;
-  }
-  .btn-bull {
-    @apply btn bg-bull/12 text-bull border-bull/25 hover:bg-bull/22;
-  }
-  .btn-bear {
-    @apply btn bg-bear/10 text-bear border-bear/20 hover:bg-bear/18;
-  }
-  .btn-ghost {
-    @apply btn bg-transparent text-slate-400 border-border hover:border-border2 hover:text-slate-300;
-  }
-  .btn-danger {
-    @apply btn bg-bear/8 text-bear border-bear/18 hover:bg-bear/16;
-  }
+  .btn-primary { @apply btn text-acc border-acc; background-color: rgb(45 143 255 / 0.15); }
+  .btn-primary:hover { background-color: rgb(45 143 255 / 0.25); }
+  .btn-bull    { @apply btn text-bull border-bull; background-color: rgb(0 217 126 / 0.12); }
+  .btn-bull:hover { background-color: rgb(0 217 126 / 0.22); }
+  .btn-bear    { @apply btn text-bear border-bear; background-color: rgb(255 61 90 / 0.10); }
+  .btn-bear:hover { background-color: rgb(255 61 90 / 0.18); }
+  .btn-ghost   { @apply btn bg-transparent border-border hover:border-border2; color: var(--muted); }
+  .btn-ghost:hover { color: var(--text); }
+  .btn-danger  { @apply btn text-bear border-bear; background-color: rgb(255 61 90 / 0.08); }
+  .btn-danger:hover { background-color: rgb(255 61 90 / 0.16); }
+
   .input {
-    @apply w-full bg-bg3 border border-border rounded-lg px-3 py-2 font-mono text-[11px] text-slate-200
-           outline-none transition-colors focus:border-acc placeholder-slate-600;
+    @apply w-full bg-bg3 border border-border rounded-lg px-3 py-2
+           font-mono text-[13px] outline-none transition-colors focus:border-acc;
+    color: var(--text);
   }
-  .select {
-    @apply input appearance-none cursor-pointer;
-  }
+  .input::placeholder { color: var(--muted); }
+  .select { @apply input appearance-none cursor-pointer; }
+
   .label {
-    @apply block font-mono text-[8px] text-slate-500 tracking-[2px] uppercase mb-1.5;
+    @apply block font-mono text-[10px] tracking-[2px] uppercase mb-1.5;
+    color: var(--muted);
   }
-  .field {
-    @apply flex flex-col;
-  }
-  .pill {
-    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono text-[10px] font-semibold tracking-wide border;
-  }
-  .pill-bull { @apply pill bg-bull/10 text-bull border-bull/20; }
-  .pill-bear { @apply pill bg-bear/10 text-bear border-bear/20; }
-  .pill-neutral { @apply pill bg-white/5 text-slate-400 border-border; }
-  .pill-gold { @apply pill bg-gold/10 text-gold border-gold/20; }
+  .field { @apply flex flex-col; }
 
-  .stat-card {
-    @apply card p-4 flex flex-col gap-1.5;
-  }
-  .stat-val {
-    @apply font-display text-2xl tracking-wide leading-none;
-  }
-  .stat-lbl {
-    @apply font-mono text-[8px] text-slate-500 tracking-[2px] uppercase;
-  }
-  .stat-sub {
-    @apply font-mono text-[9px] text-slate-600;
-  }
+  .pill { @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-mono text-[12px] font-semibold tracking-wide border; }
+  .pill-bull    { @apply pill bg-bull/10 text-bull border-bull/20; }
+  .pill-bear    { @apply pill bg-bear/10 text-bear border-bear/20; }
+  .pill-neutral { @apply pill border-border; color: var(--muted); background: rgba(0,0,0,0.05); }
+  .pill-gold    { @apply pill bg-gold/10 text-gold border-gold/20; }
 
-  .table-wrap {
-    @apply overflow-x-auto;
-  }
-  .data-table {
-    @apply w-full border-collapse font-mono text-[10px];
-  }
+  .stat-card { @apply card p-4 flex flex-col gap-1.5; }
+  .stat-val  { @apply font-display text-3xl tracking-wide leading-none; }
+  .stat-lbl  { @apply font-mono text-[10px] tracking-[2px] uppercase; color: var(--muted); }
+  .stat-sub  { @apply font-mono text-[11px]; color: var(--muted); }
+
+  .table-wrap  { @apply overflow-x-auto; }
+  .data-table  { @apply w-full border-collapse font-mono text-[12px]; }
   .data-table th {
-    @apply px-4 py-2.5 bg-bg3 text-slate-500 text-[8px] tracking-[2px] uppercase text-left border-b border-border whitespace-nowrap;
+    @apply px-4 py-2.5 bg-bg3 text-[10px] tracking-[2px] uppercase text-left border-b border-border whitespace-nowrap;
+    color: var(--muted);
   }
-  .data-table td {
-    @apply px-4 py-3 border-b border-border text-slate-400 whitespace-nowrap;
-  }
+  .data-table td { @apply px-4 py-3 border-b border-border whitespace-nowrap; color: var(--text); }
   .data-table tr:last-child td { @apply border-b-0; }
-  .data-table tbody tr { @apply transition-colors hover:bg-white/[0.015] cursor-pointer; }
+  .data-table tbody tr { @apply transition-colors cursor-pointer; }
+  .data-table tbody tr:hover { background: rgba(255,255,255,0.02); }
 
   .sidebar-link {
-    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg font-mono text-[10px] tracking-[1px] uppercase
-           text-slate-500 transition-all hover:text-slate-300 hover:bg-white/[0.03];
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg font-mono text-[12px] tracking-[1px] uppercase transition-all;
+    color: var(--muted);
   }
-  .sidebar-link.active {
-    @apply bg-acc/10 text-acc border border-acc/15;
-  }
+  .sidebar-link:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .sidebar-link.active { @apply bg-acc/10 text-acc border border-acc/15; }
 
-  .section-divider {
-    @apply border-t border-border my-6;
-  }
+  .section-divider { @apply border-t border-border my-6; }
+  .textarea { @apply input resize-none leading-relaxed; }
 
-  .textarea {
-    @apply input resize-none leading-relaxed;
-  }
+  .toggle { @apply relative inline-flex h-5 w-9 cursor-pointer rounded-full border-2 border-transparent transition-colors focus:outline-none; }
+  .toggle-thumb { @apply pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow transform transition-transform; }
 
-  .toggle {
-    @apply relative inline-flex h-5 w-9 cursor-pointer rounded-full border-2 border-transparent
-           transition-colors focus:outline-none;
-  }
-  .toggle-thumb {
-    @apply pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow
-           transform transition-transform;
-  }
+  /* Themed text helpers — use these instead of hardcoded slate-* */
+  .t-primary { color: var(--text); }
+  .t-muted   { color: var(--muted); }
 }
 
 /* Animations */
@@ -147,16 +135,15 @@
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-.anim-up  { animation: fadeUp  0.35s ease both; }
-.anim-in  { animation: fadeIn  0.25s ease both; }
+.anim-up   { animation: fadeUp 0.35s ease both; }
+.anim-in   { animation: fadeIn 0.25s ease both; }
 .anim-up-1 { animation-delay: 0.05s; }
 .anim-up-2 { animation-delay: 0.10s; }
 .anim-up-3 { animation-delay: 0.15s; }
 .anim-up-4 { animation-delay: 0.20s; }
 
-/* Recharts overrides */
+/* Recharts */
 .recharts-cartesian-grid-horizontal line,
-.recharts-cartesian-grid-vertical line {
-  stroke: #1a2535 !important;
-}
+.recharts-cartesian-grid-vertical line { stroke: var(--border) !important; }
 .recharts-tooltip-wrapper { outline: none !important; }
+.recharts-text { fill: var(--muted) !important; }

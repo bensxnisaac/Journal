@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './lib/auth.jsx';
-import Login      from './pages/Login.jsx';
-import Register   from './pages/Register.jsx';
-import Dashboard  from './pages/Dashboard.jsx';
-import Trades     from './pages/Trades.jsx';
-import TradeForm  from './pages/TradeForm.jsx';
-import TradeDetail from './pages/TradeDetail.jsx';
-import Stats      from './pages/Stats.jsx';
-import Notes      from './pages/Notes.jsx';
+import { AuthProvider, useAuth } from './lib/auth.js';
+import Login       from './pages/Login.js';
+import Register    from './pages/Register.js';
+import Dashboard   from './pages/Dashboard.js';
+import Trades      from './pages/Trades.js';
+import TradeForm   from './pages/TradeForm.js';
+import TradeDetail from './pages/TradeDetail.js';
+import Stats       from './pages/Stats.js';
+import Notes       from './pages/Notes.js';
 
-function RequireAuth({ children }) {
+function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -17,14 +17,14 @@ function RequireAuth({ children }) {
     </div>
   );
   if (!user) return <Navigate to="/login" replace />;
-  return children;
+  return <>{children}</>;
 }
 
-function GuestOnly({ children }) {
+function GuestOnly({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return null;
   if (user) return <Navigate to="/dashboard" replace />;
-  return children;
+  return <>{children}</>;
 }
 
 export default function App() {
@@ -32,11 +32,9 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public */}
           <Route path="/login"    element={<GuestOnly><Login /></GuestOnly>} />
           <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
 
-          {/* Protected */}
           <Route path="/dashboard"       element={<RequireAuth><Dashboard /></RequireAuth>} />
           <Route path="/trades"          element={<RequireAuth><Trades /></RequireAuth>} />
           <Route path="/new-trade"       element={<RequireAuth><TradeForm /></RequireAuth>} />
@@ -45,7 +43,6 @@ export default function App() {
           <Route path="/stats"           element={<RequireAuth><Stats /></RequireAuth>} />
           <Route path="/notes"           element={<RequireAuth><Notes /></RequireAuth>} />
 
-          {/* Fallback */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>
